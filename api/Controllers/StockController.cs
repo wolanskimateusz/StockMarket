@@ -11,11 +11,9 @@ namespace api.Controllers
     [Route("api/stock")]
     public class StockController : ControllerBase
     {
-        private readonly AppDBContext _context;
         private readonly IStockRepository _stockRepo;
-        public StockController(AppDBContext context, IStockRepository stockRepo)
+        public StockController( IStockRepository stockRepo)
         {
-            _context = context;
             _stockRepo = stockRepo;
         }
 
@@ -26,7 +24,7 @@ namespace api.Controllers
 
             var stockDto = stocks.Select(s => s.ToStockDto());
 
-            return Ok(stocks);
+            return Ok(stockDto);
         }
 
         [HttpGet("{id}")]
