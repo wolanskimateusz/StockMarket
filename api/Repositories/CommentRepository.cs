@@ -42,18 +42,23 @@ namespace api.Repositories
             return comment;
         }
 
-        public async Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto commentDto)
+        public Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto commentDto)
         {
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null) return null;
-
-            comment.StockId = commentDto.StockId;
-            comment.Title = commentDto.Title;
-            comment.Content = commentDto.Content;
-            comment.CreatedOn = commentDto.CreatedOn;
-
-            await _context.SaveChangesAsync();
-            return comment;
+            throw new NotImplementedException();
         }
+
+        // public async Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto commentDto)
+        // {
+        //     var comment = await _context.Comments.FindAsync(id);
+        //     if (comment == null) return null;
+
+        //     comment.StockId = commentDto.StockId;
+        //     comment.Title = commentDto.Title;
+        //     comment.Content = commentDto.Content;
+        //     comment.CreatedOn = commentDto.CreatedOn;
+
+        //     await _context.SaveChangesAsync();
+        //     return comment;
+        // }
     }
 }

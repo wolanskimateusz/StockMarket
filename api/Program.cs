@@ -14,6 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
+
 //Database
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
