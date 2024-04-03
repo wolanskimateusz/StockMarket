@@ -60,8 +60,9 @@ namespace api.Repositories
                         : stocks.OrderBy(s => s.CompanyName);
                 }
             }
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
-            return await stocks.ToListAsync();
+            return await stocks.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
