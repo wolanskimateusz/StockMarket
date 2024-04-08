@@ -19,7 +19,7 @@ namespace api.Controllers
         private readonly UserManager<AppUser> _userManager;
         public CommentController(ICommentRepository commentRepo, IStockRepository stopRepo, UserManager<AppUser> userManager)
         {
-            
+
             _commentRepo = commentRepo;
             _stockRepo = stopRepo;
             _userManager = userManager;
@@ -27,12 +27,12 @@ namespace api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Get([FromQuery]CommentQueryObject queryObject)
+        public async Task<IActionResult> Get([FromQuery] CommentQueryObject queryObject)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var comments =  await _commentRepo.GetAllAsync(queryObject);
-           var commentDto = comments.Select(c => c.ToCommentDto()); ;
-           return Ok(commentDto);
+            var comments = await _commentRepo.GetAllAsync(queryObject);
+            var commentDto = comments.Select(c => c.ToCommentDto()); ;
+            return Ok(commentDto);
         }
 
         [HttpGet("{id:int}")]
@@ -40,7 +40,7 @@ namespace api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var comment = await _commentRepo.GetByIdAsync(id);
-            if(comment == null) return NotFound();
+            if (comment == null) return NotFound();
             return Ok(comment.ToCommentDto());
         }
 
@@ -58,18 +58,18 @@ namespace api.Controllers
 
             await _commentRepo.CreateAsync(commentModel);
 
-            return CreatedAtAction(nameof(GetById), new {id = commentModel.Id},
+            return CreatedAtAction(nameof(GetById), new { id = commentModel.Id },
                 commentModel.ToCommentDto());
 
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute]int id, [FromBody] UpdateCommentRequestDto commentDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto commentDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var commentModel = await _commentRepo.UpdateAsync(id, commentDto.ToCommentFromUpdateDto());
-            if(commentModel == null) return NotFound();
+            if (commentModel == null) return NotFound();
             return Ok(commentModel.ToCommentDto());
 
         }
@@ -80,7 +80,7 @@ namespace api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var commentModel = await _commentRepo.DeleteAsync(id);
-           if(commentModel == null) return NotFound();
+            if (commentModel == null) return NotFound();
             return NoContent();
         }
     }
