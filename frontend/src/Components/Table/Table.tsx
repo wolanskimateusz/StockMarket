@@ -3,28 +3,18 @@ import { testIncomeStatementData } from './TestData'
 
 const data = testIncomeStatementData
 
-interface Props {}
+interface Props {
+    config: any
+    data: any
+}
 
-type Company = (typeof data)[0]
 
-const configs = [
-    {
-        label: "Year",
-        render: (company:Company) => company.acceptedDate
+const Table = ({config, data}: Props) => {
 
-    },
-    {
-        label: "Cost of revenue",
-        render: (company:Company) => company.costOfRevenue
-    }
-]
-
-const Table = (props: Props) => {
-
-    const renderedRows = data.map((company) => {
+    const renderedRows = data.map((company:any) => {
         return (
             <tr key={company.cik}>
-                {configs.map((value : any) => {
+                {config.map((value : any) => {
                    return <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
                     {value.render(company)} </td>
                 })}
@@ -34,7 +24,7 @@ const Table = (props: Props) => {
     })
 
 
-    const renderedHeaders = configs.map((config :any )=>{
+    const renderedHeaders = config.map((config :any )=>{
         return <th className="p-r text-left text-xs font-medium text-fray-500 uppercase tracking-wider" key={config.label}>
             {config.label}
         </th>
